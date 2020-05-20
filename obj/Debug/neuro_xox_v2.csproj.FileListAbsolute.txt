@@ -1,0 +1,10 @@
+C:\Users\Admin\source\repos\neuro_xox_v2\bin\Debug\neuro_xox_v2.exe.config
+C:\Users\Admin\source\repos\neuro_xox_v2\bin\Debug\neuro_xox_v2.exe
+C:\Users\Admin\source\repos\neuro_xox_v2\bin\Debug\neuro_xox_v2.pdb
+C:\Users\Admin\source\repos\neuro_xox_v2\obj\Debug\neuro_xox_v2.csprojAssemblyReference.cache
+C:\Users\Admin\source\repos\neuro_xox_v2\obj\Debug\neuro_xox_v2.Form1.resources
+C:\Users\Admin\source\repos\neuro_xox_v2\obj\Debug\neuro_xox_v2.Properties.Resources.resources
+C:\Users\Admin\source\repos\neuro_xox_v2\obj\Debug\neuro_xox_v2.csproj.GenerateResource.cache
+C:\Users\Admin\source\repos\neuro_xox_v2\obj\Debug\neuro_xox_v2.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\neuro_xox_v2\obj\Debug\neuro_xox_v2.exe
+C:\Users\Admin\source\repos\neuro_xox_v2\obj\Debug\neuro_xox_v2.pdb
