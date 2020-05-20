@@ -53,7 +53,7 @@ namespace neuro_xox_v2
                 if ((neurons_end[i] >= tmp) && (pole[temp, i-temp*30] == 0)) place = i;
             }
 
-            return place+1;
+            return place;
 
 
         }

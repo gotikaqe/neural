@@ -74,18 +74,21 @@ namespace neuro_xox_v2
 					{
 						tmp_x = Convert.ToInt32(Math.Truncate((double)(xxx[k].hod(pole)/30)));
 						pole[tmp_x, xxx[k].hod(pole) - tmp_x*30] = 1;
+                        hodov++;
                         if (WinCheck.IfWin(pole, tmp_x, xxx[k].hod(pole) - tmp_x*30) == 1)
                         {
                             winner = 1;
                             break;
                         }
                         tmp_y = Convert.ToInt32(Math.Truncate((double)(ooo[k].hod(pole) / 30)));
+                        int z = ooo[k].hod(pole) - tmp_y * 30;
                         pole[tmp_y, ooo[k].hod(pole) - tmp_y*30]=2;
-                        if (WinCheck.IfWin(pole, tmp_y, ooo[k].hod(pole)-tmp_y*30)==2)
+                        if (WinCheck.IfWin(pole, tmp_y, z)==2)
                         {
                             winner = 2;
                             break;
                         }
+                        hodov++;
 					}
                     if (winner == 0)
                     {
