@@ -25,7 +25,10 @@ namespace neuro_xox_v2
         {
             InitializeComponent();
         }
-
+        public int IntDiv30(int x)
+        {
+            return Convert.ToInt32(Math.Truncate((double)(x / 30)));
+        }
         private void show_pole(int ab)
         {
             textBox1.Text = null;
@@ -96,25 +99,25 @@ namespace neuro_xox_v2
                     winner = 0;
                     nul_pole();
 					hodov = 0;
-                    while (hodov <=898)
+                    while (hodov <= 898)
 					{
                         tmp_y = xxx[k].hod(pole);
-                        tmp_x = Convert.ToInt32(Math.Truncate((double)(tmp_y/30)));
+                        tmp_x = IntDiv30(tmp_y);
                         z = tmp_y - tmp_x * 30;
                         pole[tmp_x, z] = 1;
                         if ((i == 500) && (k == 0)) hellomf.WriteLine(tmp_x.ToString() + " " + z.ToString());
                         hodov++;
-                        if (WinCheck.IfWin(pole, tmp_x, z) == 1)
+                        if (WinCheck.IfWin(pole, tmp_x, z))
                         {
                             winner = 1;
                             break;
                         }
                         tmp_x = ooo[k].hod(pole);
-                        tmp_y = Convert.ToInt32(Math.Truncate((double)(tmp_x / 30)));
+                        tmp_y = IntDiv30(tmp_x);
                         z = tmp_x - tmp_y * 30;
                         pole[tmp_y, z]=2;
                         if ((i == 500) && (k == 0)) hellomf.WriteLine(tmp_y.ToString() + " " + z.ToString());
-                        if (WinCheck.IfWin(pole, tmp_y, z)==2)
+                        if (WinCheck.IfWin(pole, tmp_y, z))
                         {
                             winner = 2;
                             break;
@@ -124,11 +127,11 @@ namespace neuro_xox_v2
                     if (winner == 0)
                     {
                         tmp_y = ooo[k].hod(pole);
-                        tmp_x = Convert.ToInt32(Math.Truncate((double)(tmp_y / 30)));
+                        tmp_x = IntDiv30(tmp_y);
                         z = tmp_y - tmp_x * 30;
                         pole[tmp_x, z] = 2;
                         if ((i == 500) && (k == 0)) hellomf.WriteLine(tmp_y.ToString() + " " + z.ToString());
-                        if (WinCheck.IfWin(pole, tmp_x, z) == 0)
+                        if (!WinCheck.IfWin(pole, tmp_x, z))
                         {
                             xxx[k].good(hodov, false);
                             ooo[k].good(-hodov, true);

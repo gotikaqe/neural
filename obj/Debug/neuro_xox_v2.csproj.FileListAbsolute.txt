@@ -8,3 +8,13 @@ C:\Users\Admin\source\repos\neuro_xox_v2\obj\Debug\neuro_xox_v2.csproj.GenerateR
 C:\Users\Admin\source\repos\neuro_xox_v2\obj\Debug\neuro_xox_v2.csproj.CoreCompileInputs.cache
 C:\Users\Admin\source\repos\neuro_xox_v2\obj\Debug\neuro_xox_v2.exe
 C:\Users\Admin\source\repos\neuro_xox_v2\obj\Debug\neuro_xox_v2.pdb
+C:\Users\Depard42\Desktop\neural-master\bin\Debug\neuro_xox_v2.exe.config
+C:\Users\Depard42\Desktop\neural-master\bin\Debug\neuro_xox_v2.exe
+C:\Users\Depard42\Desktop\neural-master\bin\Debug\neuro_xox_v2.pdb
+C:\Users\Depard42\Desktop\neural-master\obj\Debug\neuro_xox_v2.csprojAssemblyReference.cache
+C:\Users\Depard42\Desktop\neural-master\obj\Debug\neuro_xox_v2.Form1.resources
+C:\Users\Depard42\Desktop\neural-master\obj\Debug\neuro_xox_v2.Properties.Resources.resources
+C:\Users\Depard42\Desktop\neural-master\obj\Debug\neuro_xox_v2.csproj.GenerateResource.cache
+C:\Users\Depard42\Desktop\neural-master\obj\Debug\neuro_xox_v2.csproj.CoreCompileInputs.cache
+C:\Users\Depard42\Desktop\neural-master\obj\Debug\neuro_xox_v2.exe
+C:\Users\Depard42\Desktop\neural-master\obj\Debug\neuro_xox_v2.pdb
