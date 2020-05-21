@@ -15,6 +15,7 @@ namespace neuro_xox_v2
     public partial class Form1 : Form
     {
         string path = @"C:\Users\Admin\Desktop\save.txt";
+        //string path = @"C:\Users\Depard42\Desktop\save.txt";
         int[,] pole = new int[30, 30];
 
         neural_worker[] xxx = new neural_worker[20];
@@ -52,8 +53,8 @@ namespace neuro_xox_v2
 
         private void sort_by_good(neural_worker[] temp)
         {
-            neural_worker tmp = new neural_worker();
-            int xix = 0;
+            neural_worker tmp;
+            //int xix = 0;
             for (int i = 0; i < temp.Length; i++)
             {
                 tmp = temp[i];
@@ -84,15 +85,16 @@ namespace neuro_xox_v2
 
         private void button1_Click(object sender, EventArgs e)
         {
+            int generations = 500;      //Количество поколений
             progressBar1.Value = 0;
-            progressBar1.Maximum = 19999;
+            progressBar1.Maximum = generations;
             StreamWriter hellomf = new StreamWriter(@path);
 			int hodov = 0;
 			int tmp_x = 0;
 			int tmp_y = 0;
             int winner = 0;
             int z = 0;
-            for (int i = 0; i<501; i++)
+            for (int i = 0; i < generations; i++)
             {
                 for (int k = 0; k<5; k++)
                 {
@@ -105,7 +107,7 @@ namespace neuro_xox_v2
                         tmp_x = IntDiv30(tmp_y);
                         z = tmp_y - tmp_x * 30;
                         pole[tmp_x, z] = 1;
-                        if ((i == 500) && (k == 0)) hellomf.WriteLine(tmp_x.ToString() + " " + z.ToString());
+                        if ((i == generations-1) && (k == 0)) hellomf.WriteLine(tmp_x.ToString() + " " + z.ToString());
                         hodov++;
                         if (WinCheck.IfWin(pole, tmp_x, z))
                         {
@@ -116,7 +118,7 @@ namespace neuro_xox_v2
                         tmp_y = IntDiv30(tmp_x);
                         z = tmp_x - tmp_y * 30;
                         pole[tmp_y, z]=2;
-                        if ((i == 500) && (k == 0)) hellomf.WriteLine(tmp_y.ToString() + " " + z.ToString());
+                        if ((i == generations-1) && (k == 0)) hellomf.WriteLine(tmp_y.ToString() + " " + z.ToString());
                         if (WinCheck.IfWin(pole, tmp_y, z))
                         {
                             winner = 2;
@@ -130,7 +132,7 @@ namespace neuro_xox_v2
                         tmp_x = IntDiv30(tmp_y);
                         z = tmp_y - tmp_x * 30;
                         pole[tmp_x, z] = 2;
-                        if ((i == 500) && (k == 0)) hellomf.WriteLine(tmp_y.ToString() + " " + z.ToString());
+                        if ((i == generations-1) && (k == 0)) hellomf.WriteLine(tmp_y.ToString() + " " + z.ToString());
                         if (!WinCheck.IfWin(pole, tmp_x, z))
                         {
                             xxx[k].good(hodov, false);
