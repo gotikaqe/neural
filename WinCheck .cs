@@ -96,7 +96,7 @@ namespace neuro_xox_v2
 			line = 0; //Обнуляем переменные
 			ifline = false;
 
-			for (int i = -min(4, min(x, columns - y)); i < min(5, min(rows - x, y)); i++) //Подсчёт побочной диагонали
+			for (int i = -min(4, min(x, columns - y)-1); i < min(5, min(rows - x, y)); i++) //Подсчёт побочной диагонали
 			{
 				if (ifline) //Если до этого начался ряд
 				{

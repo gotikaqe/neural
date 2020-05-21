@@ -9,7 +9,7 @@ namespace neuro_xox_v2
 {
     class neural_worker
     {
-        private double k1 = 0.1;
+        private double k1 = 5;
         public double[,] neurons = new double[3, 100];
         public double[,] start_w = new double[900, 100];
         public double[,,] w = new double[2, 100, 100];
@@ -24,13 +24,13 @@ namespace neuro_xox_v2
             for (int i = 0; i<900; i++)
                 for (int k = 0; k<100; k++)
                 {
-                    start_w[i, k] = rr.NextDouble();
-                    end_w[k, i] = rr.NextDouble();
+                    start_w[i, k] = rr.NextDouble()+rr.Next()%20;
+                    end_w[k, i] = rr.NextDouble() + rr.Next() % 20;
                 }
             for (int i = 0; i < 2; i++)
                 for (int k = 0; k < 100; k++)
                     for (int z = 0; z < 100; z++)
-                        w[i, k, z] = rr.NextDouble();
+                        w[i, k, z] = rr.NextDouble() + rr.Next() % 20;
 
         }
 
@@ -47,10 +47,15 @@ namespace neuro_xox_v2
                 neurons_end[i] = f_act(sum_end(i));
 
             double tmp = 0;
+            int temp;
             int place = 0;
             for (int i = 0; i < 900; i++) {
-                int temp = (int)Math.Truncate((double)(i / 30));
-                if ((neurons_end[i] >= tmp) && (pole[temp, i-temp*30] == 0)) place = i;
+                temp = (int)Math.Truncate((double)(i / 30));
+                if ((neurons_end[i] >= tmp) && (pole[temp, i - temp * 30] == 0))
+                {
+                    place = i;
+                    tmp = neurons_end[i];
+                }
             }
 
             return place;
@@ -64,7 +69,7 @@ namespace neuro_xox_v2
             double tmp = 0;
             for (int i = 0; i < 30; i++)
                 for (int k = 0; k < 30; k++)
-                    tmp += pole1[i, k] * start_w[i * 30 + k, current_neuron];
+                    tmp += (pole1[i, k]) * start_w[i * 30 + k, current_neuron];
             return tmp;
         }
 
@@ -92,24 +97,24 @@ namespace neuro_xox_v2
             for (int i = 0; i < 900; i++)
                 for (int k = 0; k < 100; k++)
                 {
-                    if (a.start_w[i, k] < b.start_w[i, k]) start_w[i, k] = b.start_w[i, k] - k1;
-                    else start_w[i, k] = b.start_w[i, k] + k1;
-                    if (rr.Next() % 250 == 0) start_w[i, k] /= 2;
+                    if (a.start_w[i, k] < b.start_w[i, k]) start_w[i, k] = (b.start_w[i, k] + a.start_w[i,k]- k1)/2;
+                    else start_w[i, k] = (b.start_w[i, k] + a.start_w[i, k] + k1)/2;
+                    if (rr.Next() % 6 == 0) start_w[i, k] /= 2;
                 }
             for (int i = 0; i<2; i++)
                 for (int k = 0; k < 100; k++)
                     for (int z = 0; z < 100; z++) { 
-                        if (a.w[i, k, z] > b.w[i, k, z]) w[i, k, z] = b.w[i, k, z] + k1;
-                        else w[i, k, z] = b.w[i, k, z] - k1;
-                        if (rr.Next() % 600 == 0) w[i, k, z] /= 2;
+                        if (a.w[i, k, z] > b.w[i, k, z]) w[i, k, z] = (b.w[i, k, z] + a.w[i,k,z] + k1)/2;
+                        else w[i, k, z] = (b.w[i, k, z] + a.w[i, k, z] - k1)/2;
+                        if (rr.Next() % 6 == 0) w[i, k, z] /= 2;
                     }
 
             for (int i = 0; i<100; i++)
                 for (int k = 0; k<900; k++)
                 {
-                    if (a.end_w[i, k] > b.end_w[i, k]) end_w[i, k] = b.end_w[i, k] + k1;
-                    else end_w[i, k] = b.end_w[i, k] - k1;
-                    if (rr.Next() % 250 == 0) end_w[i, k] /= 2;
+                    if (a.end_w[i, k] > b.end_w[i, k]) end_w[i, k] = (b.end_w[i, k] + a.end_w[i,k] + k1)/2;
+                    else end_w[i, k] = (b.end_w[i, k] + a.end_w[i, k] - k1)/2;
+                    if (rr.Next() % 6 == 0) end_w[i, k] /= 2;
                 }
 
         }
