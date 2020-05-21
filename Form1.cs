@@ -89,7 +89,7 @@ namespace neuro_xox_v2
 			int tmp_y = 0;
             int winner = 0;
             int z = 0;
-            for (int i = 0; i<20000; i++)
+            for (int i = 0; i<501; i++)
             {
                 for (int k = 0; k<5; k++)
                 {
@@ -102,7 +102,7 @@ namespace neuro_xox_v2
                         tmp_x = Convert.ToInt32(Math.Truncate((double)(tmp_y/30)));
                         z = tmp_y - tmp_x * 30;
                         pole[tmp_x, z] = 1;
-                        if ((i == 19999) && (k == 0)) hellomf.WriteLine(tmp_x.ToString() + " " + z.ToString());
+                        if ((i == 500) && (k == 0)) hellomf.WriteLine(tmp_x.ToString() + " " + z.ToString());
                         hodov++;
                         if (WinCheck.IfWin(pole, tmp_x, z) == 1)
                         {
@@ -113,7 +113,7 @@ namespace neuro_xox_v2
                         tmp_y = Convert.ToInt32(Math.Truncate((double)(tmp_x / 30)));
                         z = tmp_x - tmp_y * 30;
                         pole[tmp_y, z]=2;
-                        if ((i == 19999) && (k == 0)) hellomf.WriteLine(tmp_y.ToString() + " " + z.ToString());
+                        if ((i == 500) && (k == 0)) hellomf.WriteLine(tmp_y.ToString() + " " + z.ToString());
                         if (WinCheck.IfWin(pole, tmp_y, z)==2)
                         {
                             winner = 2;
@@ -127,11 +127,11 @@ namespace neuro_xox_v2
                         tmp_x = Convert.ToInt32(Math.Truncate((double)(tmp_y / 30)));
                         z = tmp_y - tmp_x * 30;
                         pole[tmp_x, z] = 2;
-                        if ((i == 19999) && (k == 0)) hellomf.WriteLine(tmp_y.ToString() + " " + z.ToString());
+                        if ((i == 500) && (k == 0)) hellomf.WriteLine(tmp_y.ToString() + " " + z.ToString());
                         if (WinCheck.IfWin(pole, tmp_x, z) == 0)
                         {
                             xxx[k].good(hodov, false);
-                            ooo[k].good(-hodov, false);
+                            ooo[k].good(-hodov, true);
                         }
                     } else if (winner == 1)
                     {
