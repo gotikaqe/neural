@@ -17,6 +17,7 @@ namespace neuro_xox_v2
         string path = @"C:\Users\Admin\Desktop\save.txt";
         //string path = @"C:\Users\Depard42\Desktop\save.txt";
         int[,] pole = new int[30, 30];
+        bool partia = true;
 
         neural_worker[] xxx = new neural_worker[20];
         neural_worker[] ooo = new neural_worker[20];
@@ -29,6 +30,7 @@ namespace neuro_xox_v2
                 xxx[i] = new neural_worker();
                 ooo[i] = new neural_worker();
             }
+            if (File.Exists("save_x.txt")) upload();
             InitializeComponent();
         }
         public int IntDiv30(int x)
@@ -92,7 +94,7 @@ namespace neuro_xox_v2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int generations = 50;      //Количество поколений
+            int generations = 20;      //Количество поколений
             progressBar1.Value = 0;
             progressBar1.Maximum = generations;
             StreamWriter hellomf = new StreamWriter(@path);
@@ -153,6 +155,101 @@ namespace neuro_xox_v2
                 progressBar1.Value += 1;
             }
             hellomf.Close();
+        }
+
+        private void save_now()
+        {
+            //public double[,] start_w = new double[900, 100];
+            //public double[,,] w = new double[2, 100, 100];
+            //public double[,] end_w = new double[100, 900];
+            StreamWriter save_x = new StreamWriter(@"save_x.txt");
+            StreamWriter save_o = new StreamWriter(@"save_o.txt");
+
+            for (int i = 0; i < 20; i++)
+            {
+                for (int k = 0; k < 900; k++)
+                    for (int z = 0; z < 100; z++)
+                        save_x.WriteLine(xxx[i].start_w[k, z]);
+                for (int k = 0; k < 2; k++)
+                    for (int z = 0; z < 100; z++)
+                        for (int j = 0; j < 100; j++)
+                            save_x.WriteLine(xxx[i].w[k, z, j]);
+                for (int k = 0; k < 100; k++)
+                    for (int z = 0; z < 900; z++)
+                        save_x.WriteLine(xxx[i].end_w[k, z]);
+            }
+            for (int i = 0; i < 20; i++)
+            {
+                for (int k = 0; k < 900; k++)
+                    for (int z = 0; z < 100; z++)
+                        save_o.WriteLine(ooo[i].start_w[k, z]);
+                for (int k = 0; k < 2; k++)
+                    for (int z = 0; z < 100; z++)
+                        for (int j = 0; j < 100; j++)
+                            save_o.WriteLine(ooo[i].w[k, z, j]);
+                for (int k = 0; k < 100; k++)
+                    for (int z = 0; z < 900; z++)
+                        save_o.WriteLine(ooo[i].end_w[k, z]);
+            }
+            save_x.Close();
+            save_o.Close();
+
+        }
+        private void upload()
+        {
+            StreamReader save_x = new StreamReader(@"save_x.txt");
+            StreamReader save_o = new StreamReader(@"save_o.txt");
+
+            for (int i = 0; i < 20; i++)
+            {
+                for (int k = 0; k < 900; k++)
+                    for (int z = 0; z < 100; z++)
+                        xxx[i].start_w[k, z] = Convert.ToDouble(save_x.ReadLine());
+                for (int k = 0; k < 2; k++)
+                    for (int z = 0; z < 100; z++)
+                        for (int j = 0; j < 100; j++)
+                            xxx[i].w[k, z, j] = Convert.ToDouble(save_x.ReadLine());
+                for (int k = 0; k < 100; k++)
+                    for (int z = 0; z < 900; z++)
+                        xxx[i].end_w[k, z] = Convert.ToDouble(save_x.ReadLine());
+            }
+            for (int i = 0; i < 20; i++)
+            {
+                for (int k = 0; k < 900; k++)
+                    for (int z = 0; z < 100; z++)
+                        ooo[i].start_w[k, z] = Convert.ToDouble(save_o.ReadLine());
+                for (int k = 0; k < 2; k++)
+                    for (int z = 0; z < 100; z++)
+                        for (int j = 0; j < 100; j++)
+                            ooo[i].w[k, z, j] = Convert.ToDouble(save_o.ReadLine());
+                for (int k = 0; k < 100; k++)
+                    for (int z = 0; z < 900; z++)
+                        ooo[i].end_w[k, z] = Convert.ToDouble(save_o.ReadLine());
+            }
+            save_x.Close();
+            save_o.Close();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            save_now();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (partia == true) { nul_pole(); partia = false; }
+            int x, y;
+            x = Convert.ToInt32(textBox2.Text);
+            y = Convert.ToInt32(textBox3.Text);
+            pole[x, y] = 1;
+            show_pole(0);
+            if (WinCheck.IfWin(pole, x, y)) partia = true;
+            int tmp_y = ooo[0].hod(pole);
+            int tmp_x = IntDiv30(tmp_y);
+            int z = tmp_y - tmp_x * 30;
+            pole[tmp_x, z] = 2;
+            show_pole(0);
+            if (WinCheck.IfWin(pole, tmp_x, z)) partia = true;
         }
     }
 }
