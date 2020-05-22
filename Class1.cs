@@ -43,13 +43,12 @@ namespace neuro_xox_v2
                 for (int k = 0; k < 100; k++)
                     neurons[i, k] = f_act(sum_hidden(i, k));
 
-            for (int i = 0; i < 900; i++)
-                neurons_end[i] = f_act(sum_end(i));
-
             double tmp = 0;
             int temp;
             int place = 0;
             for (int i = 0; i < 900; i++) {
+                neurons_end[i] = f_act(sum_end(i));
+
                 temp = (int)Math.Truncate((double)(i / 30));
                 if ((neurons_end[i] >= tmp) && (pole[temp, i - temp * 30] == 0))
                 {
