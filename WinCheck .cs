@@ -30,7 +30,7 @@ namespace neuro_xox_v2
 			int line = 0; //Переменная для хранения длины непрерывного ряда
 			bool ifline = false; //Переменная для проверки того продолжается ли ряд
 
-			for (int i = max(x - 4, 0); i < min(x + 4, columns); i++) //Подсчёт ряда по горизонтали
+			for (int i = max(x - 4, 0); i < min(x + 5, columns); i++) //Подсчёт ряда по горизонтали
 			{
 				if (ifline) //Если до этого начался ряд
 				{
@@ -52,7 +52,7 @@ namespace neuro_xox_v2
 			line = 0; //Обнуляем переменные
 			ifline = false;
 
-			for (int i = max(y - 4, 0); i < min(y + 4, rows); i++) //Подсчёт ряда по вертикали
+			for (int i = max(y - 4, 0); i < min(y + 5, rows); i++) //Подсчёт ряда по вертикали
 			{
 				if (ifline) //Если до этого начался ряд
 				{

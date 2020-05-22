@@ -24,6 +24,11 @@ namespace neuro_xox_v2
 
         public Form1()
         {
+            for (int i = 0; i < 20; i++)
+            {
+                xxx[i] = new neural_worker();
+                ooo[i] = new neural_worker();
+            }
             InitializeComponent();
         }
         public int IntDiv30(int x)
@@ -51,19 +56,26 @@ namespace neuro_xox_v2
             textBox1.Text += "\r\n" + z.ToString() + "   " + z1.ToString();
         }
 
-        private void sort_by_good(neural_worker[] temp)
+        private void sort_by_good()
         {
             neural_worker tmp;
-            //int xix = 0;
-            for (int i = 0; i < temp.Length; i++)
+            for (int i = 0; i < xxx.Length; i++)
             {
-                tmp = temp[i];
-                for (int k = 0; k < temp.Length; k++)
-                    if (tmp.usefull <= temp[k].usefull)
+                for (int k = i + 1; k < xxx.Length; k++)
+                {
+                    if (xxx[i].usefull < xxx[k].usefull)
                     {
-                        temp[i] = temp[k];
-                        temp[k] = tmp;
+                        tmp = xxx[i];
+                        xxx[i] = xxx[k];
+                        xxx[k] = tmp;
                     }
+                    if (ooo[i].usefull < ooo[k].usefull)
+                    {
+                        tmp = ooo[i];
+                        ooo[i] = ooo[k];
+                        ooo[k] = tmp;
+                    }
+                }
             }
         }
 
@@ -76,16 +88,11 @@ namespace neuro_xox_v2
 
 		private void Form1_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i<20; i++)
-            {
-                xxx[i] = new neural_worker();
-                ooo[i] = new neural_worker();
-            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int generations = 500;      //Количество поколений
+            int generations = 50;      //Количество поколений
             progressBar1.Value = 0;
             progressBar1.Maximum = generations;
             StreamWriter hellomf = new StreamWriter(@path);
@@ -96,12 +103,12 @@ namespace neuro_xox_v2
             int z = 0;
             for (int i = 0; i < generations; i++)
             {
-                for (int k = 0; k<5; k++)
+                for (int k = 0; k<20; k++)
                 {
                     winner = 0;
                     nul_pole();
 					hodov = 0;
-                    while (hodov <= 898)
+                    while (hodov <= 899)
 					{
                         tmp_y = xxx[k].hod(pole);
                         tmp_x = IntDiv30(tmp_y);
@@ -118,43 +125,30 @@ namespace neuro_xox_v2
                         tmp_y = IntDiv30(tmp_x);
                         z = tmp_x - tmp_y * 30;
                         pole[tmp_y, z]=2;
+                        hodov++;
                         if ((i == generations-1) && (k == 0)) hellomf.WriteLine(tmp_y.ToString() + " " + z.ToString());
                         if (WinCheck.IfWin(pole, tmp_y, z))
                         {
                             winner = 2;
                             break;
                         }
-                        hodov++;
                     }
-                    if (winner == 0)
+                    if ((winner == 0) || (winner == 2))
                     {
-                        tmp_y = ooo[k].hod(pole);
-                        tmp_x = IntDiv30(tmp_y);
-                        z = tmp_y - tmp_x * 30;
-                        pole[tmp_x, z] = 2;
-                        if ((i == generations-1) && (k == 0)) hellomf.WriteLine(tmp_y.ToString() + " " + z.ToString());
-                        if (!WinCheck.IfWin(pole, tmp_x, z))
-                        {
-                            xxx[k].good(hodov, false);
-                            ooo[k].good(-hodov, true);
-                        }
+                        xxx[k].good(hodov, false);
+                        ooo[k].good(hodov, true);
                     } else if (winner == 1)
                     {
                         xxx[k].good(hodov, true);
-                        ooo[k].good(-hodov, false);
-                    } else
-                    {
-                        xxx[k].good(hodov, false);
-                        ooo[k].good(-hodov, true);
-                    }
+                        ooo[k].good(hodov, false);
+                    } 
                 }
 
-                sort_by_good(xxx);
-                sort_by_good(ooo);
-                for (int k = 3; k < 5; k++)
-                    xxx[k].slij(xxx[k - 3], xxx[k - 2]);
-                for (int k = 3; k < 5; k++)
-                    ooo[k].slij(ooo[k - 3], ooo[k - 2]);
+                sort_by_good();
+                for (int k = 10; k < 20; k++)
+                    xxx[k].slij(xxx[k - 10], xxx[k - 9]);
+                for (int k = 10; k < 20; k++)
+                    ooo[k].slij(ooo[k - 10], ooo[k - 9]);
                 show_pole(winner);
                 progressBar1.Value += 1;
             }

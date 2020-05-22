@@ -9,7 +9,7 @@ namespace neuro_xox_v2
 {
     class neural_worker
     {
-        private double k1 = 5;
+        private double k1 = 1;
         public double[,] neurons = new double[3, 100];
         public double[,] start_w = new double[900, 100];
         public double[,,] w = new double[2, 100, 100];
@@ -24,13 +24,13 @@ namespace neuro_xox_v2
             for (int i = 0; i<900; i++)
                 for (int k = 0; k<100; k++)
                 {
-                    start_w[i, k] = rr.NextDouble()+rr.Next()%20;
-                    end_w[k, i] = rr.NextDouble() + rr.Next() % 20;
+                    start_w[i, k] = rr.NextDouble();
+                    end_w[k, i] = rr.NextDouble();
                 }
             for (int i = 0; i < 2; i++)
                 for (int k = 0; k < 100; k++)
                     for (int z = 0; z < 100; z++)
-                        w[i, k, z] = rr.NextDouble() + rr.Next() % 20;
+                        w[i, k, z] = rr.NextDouble();
 
         }
 
@@ -93,33 +93,37 @@ namespace neuro_xox_v2
         public void slij(neural_worker a, neural_worker b)
         {
             Random rr = new Random(DateTime.Now.Millisecond);
+            double templ = 0;
             for (int i = 0; i < 900; i++)
                 for (int k = 0; k < 100; k++)
                 {
-                    if (a.start_w[i, k] < b.start_w[i, k]) start_w[i, k] = (b.start_w[i, k] + a.start_w[i,k]- k1)/2;
-                    else start_w[i, k] = (b.start_w[i, k] + a.start_w[i, k] + k1)/2;
+                    templ = b.start_w[i, k] + a.start_w[i, k];
+                    if (a.start_w[i, k] < b.start_w[i, k]) start_w[i, k] = b.start_w[i, k] - templ/2 ;
+                    else start_w[i, k] = b.start_w[i, k] + templ/2;
                     if (rr.Next() % 6 == 0) start_w[i, k] /= 2;
                 }
             for (int i = 0; i<2; i++)
                 for (int k = 0; k < 100; k++)
-                    for (int z = 0; z < 100; z++) { 
-                        if (a.w[i, k, z] > b.w[i, k, z]) w[i, k, z] = (b.w[i, k, z] + a.w[i,k,z] + k1)/2;
-                        else w[i, k, z] = (b.w[i, k, z] + a.w[i, k, z] - k1)/2;
+                    for (int z = 0; z < 100; z++) {
+                        templ = b.w[i, k, z] + a.w[i, k, z];
+                        if (a.w[i, k, z] < b.w[i, k, z]) w[i, k, z] = b.w[i, k, z] - templ/2;
+                        else w[i, k, z] = b.w[i, k, z] + templ/2;
                         if (rr.Next() % 6 == 0) w[i, k, z] /= 2;
                     }
 
             for (int i = 0; i<100; i++)
                 for (int k = 0; k<900; k++)
                 {
-                    if (a.end_w[i, k] > b.end_w[i, k]) end_w[i, k] = (b.end_w[i, k] + a.end_w[i,k] + k1)/2;
-                    else end_w[i, k] = (b.end_w[i, k] + a.end_w[i, k] - k1)/2;
-                    if (rr.Next() % 6 == 0) end_w[i, k] /= 2;
+                    templ = b.end_w[i, k] + a.end_w[i, k];
+                    if (a.end_w[i, k] < b.end_w[i, k]) end_w[i, k] = b.end_w[i, k] - templ/2;
+                    else end_w[i, k] = b.end_w[i, k] + templ/2;
+                    if (rr.Next() % 6 == 0) end_w[i, k] *= rr.Next(-1,1);
                 }
 
         }
         public void good(int hodov, bool win)
         {
-            usefull = Convert.ToInt32(win) * (900 - hodov) - hodov;
+            usefull = 1000*Convert.ToInt32(win) * (900 - hodov+1) - hodov;
         }
 
 
